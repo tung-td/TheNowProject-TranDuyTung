@@ -35,8 +35,23 @@ export const CreateTodoForm = () => {
       },
     })
 
+  const handdleSubmit = () => {
+    if (todoBody.trim()) {
+      createTodo({
+        body: todoBody,
+      })
+      setTodoBody('')
+    }
+  }
+
   return (
-    <form className="group flex items-center justify-between rounded-12 border border-gray-200 py-2 pr-4 focus-within:border-gray-400">
+    <form
+      className="group flex items-center justify-between rounded-12 border border-gray-200 py-2 pr-4 focus-within:border-gray-400"
+      onSubmit={(e) => {
+        e.preventDefault()
+        handdleSubmit()
+      }}
+    >
       <label htmlFor={TODO_INPUT_ID} className="sr-only">
         Add todo
       </label>
@@ -53,14 +68,9 @@ export const CreateTodoForm = () => {
       />
 
       <button
-        type="button"
+        className="rounded-[9999px] bg-[#334155] px-[20px] py-[8px] text-[14px] font-[700] leading-[20px] text-white"
+        type="submit"
         disabled={isCreatingTodo}
-        onClick={() => {
-          createTodo({
-            body: todoBody,
-          })
-          setTodoBody('')
-        }}
       >
         Add
       </button>

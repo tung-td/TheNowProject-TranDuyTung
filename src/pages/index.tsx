@@ -1,3 +1,5 @@
+import * as Tabs from '@radix-ui/react-tabs'
+
 import { CreateTodoForm } from '@/client/components/CreateTodoForm'
 import { TodoList } from '@/client/components/TodoList'
 
@@ -19,18 +21,50 @@ import { TodoList } from '@/client/components/TodoList'
 const Index = () => {
   return (
     <main className="mx-auto w-[480px] pt-12">
-      <div className="rounded-12 bg-white p-8 shadow-sm">
+      <div className="flex flex-col gap-[40px] rounded-12 bg-white p-8 shadow-sm">
         <h1 className="text-center text-4xl font-extrabold text-gray-900">
           Todo App
         </h1>
 
-        <div className="pt-10">
-          <TodoList />
-        </div>
+        <Tabs.Root className="flex flex-col gap-[40px]" defaultValue="all">
+          <Tabs.List
+            className="flex gap-[8px]"
+            aria-label="Manage your account"
+          >
+            <Tabs.Trigger
+              className="rounded-[9999px] border-[1px] border-solid border-[#E2E8F0] px-[24px] py-[12px] text-[14px] font-[700] text-[#334155] aria-selected:border-[#000] aria-selected:bg-[#334155] aria-selected:text-white"
+              value="all"
+            >
+              All
+            </Tabs.Trigger>
+            <Tabs.Trigger
+              className="rounded-[9999px] border-[1px] border-solid border-[#E2E8F0] px-[24px] py-[12px] text-[14px] font-[700] text-[#334155] aria-selected:border-[#000] aria-selected:bg-[#334155] aria-selected:text-white"
+              value="pending"
+            >
+              Pending
+            </Tabs.Trigger>
+            <Tabs.Trigger
+              className="rounded-[9999px] border-[1px] border-solid border-[#E2E8F0] px-[24px] py-[12px] text-[14px] font-[700] text-[#334155] aria-selected:border-[#000] aria-selected:bg-[#334155] aria-selected:text-white"
+              value="completed"
+            >
+              Completed
+            </Tabs.Trigger>
+          </Tabs.List>
 
-        <div className="pt-10">
-          <CreateTodoForm />
-        </div>
+          <Tabs.Content value="all">
+            <TodoList statusFilter={['pending', 'completed']} />
+          </Tabs.Content>
+
+          <Tabs.Content value="pending">
+            <TodoList statusFilter={['pending']} />
+          </Tabs.Content>
+
+          <Tabs.Content value="completed">
+            <TodoList statusFilter={['completed']} />
+          </Tabs.Content>
+        </Tabs.Root>
+
+        <CreateTodoForm />
       </div>
     </main>
   )
